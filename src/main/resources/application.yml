@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: camel-kafka-spring-boot
+camel:
+  component:
+      kafka:
+       max-poll-records: 1 
+       schema-registry-u-r-l: ${schema-registry}
+       brokers: ${broker-urls}
+       auto-offset-reset: latest
+       auto-commit-enable: false
+       allow-manual-commit: true
+       security-protocol: SASL_SSL
+       sasl-mechanism: PLAIN
+       sasl-jaas-config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${kafka-jass-user}" password="${kafka-jass-pass}";
+       key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+       value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+       specific-avro-reader: true 
+       additional-properties:
+        "[basic.auth.user.info]": ${kafka-auth-user}:${kafka-auth-pass}
+        "[basic.auth.credentials.source]": USER_INFO
+        "[allow.auto.create.topics]": false
+        "[spring.deserializer.key.delegate.class]": org.apache.kafka.common.serialization.StringDeserializer 
+        "[spring.deserializer.value.delegate.class]": io.confluent.kafka.serializers.KafkaAvroDeserializer
+  dataformat:
+    avro:
+      instance-class-name: com.tkd.camel.avro.SampleUserAvro
+camel-properties:
+ kafka:
+  consumer:
+   topic: kafka:test-kafka-topic?groupId=test-consumer
+logging.level.org.apache.camel.component.kafka.consumer: DEBUG

@@ -1,0 +1,49 @@
+{
+  "type": "record",
+  "name": "SampleUserAvro",
+  "namespace": "com.tkd.camel.avro",
+  "fields": [
+    {
+      "name": "Header",
+      "type": {
+        "name": "Header",
+        "type": "record",
+        "fields": [
+          {
+            "name": "channelType",
+            "type": "string"
+          },
+          {
+            "name": "eventType",
+            "type": "string"
+          },
+          {
+            "name": "eventPublishedTimeStamp",
+            "type": "string"
+          },
+          {
+            "name": "correlationId",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "User",
+      "type": {
+        "name": "User",
+        "type": "record",
+        "fields": [
+          {
+            "name": "userName",
+            "type": "string"
+          },
+          {
+            "name": "userType",
+            "type": "string"
+          }
+        ]
+      }
+    }
+  ]
+}
